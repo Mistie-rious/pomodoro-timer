@@ -1,70 +1,92 @@
-'use client'
-import { time } from 'console';
-import {useState,  useEffect,} from 'react'
-
+"use client";
+import { time } from "console";
+import { useState, useEffect } from "react";
 
 export default function Timer() {
-  
+  const [timer, setTimer] = useState(false);
+  const [minutes, setMinutes] = useState(1);
+  const [seconds, setSeconds] = useState(0);
 
-const [timer, setTimer] = useState(false);
-const [minutes, setMinutes] = useState(5);
-const [seconds, setSeconds] = useState(0);
+  const startTimer = () => {
+    setTimer(true);
+  };
 
-const startTimer = () => {
-  setTimer(true);
-  setMinutes(4);
-  setSeconds(59)
-};
-
-
-
-useEffect(() => {
-  if (timer && minutes > 0) {
-
-
-     const secCount = setInterval(() => {
-      
-      setSeconds(prevSeconds => prevSeconds - 1);
-
-    return () => clearInterval(secCount);
-    
-    },1000)
-
-    const minCount = setInterval(() => {
-      setSeconds(59)
-      setMinutes(prevMinutes => prevMinutes - 1);
-       
-    }, 60000);
-    
-
-
-    return () => clearInterval(minCount);
-  } else if (timer) {
+  const stopTimer = () => {
     setTimer(false);
     setMinutes(0);
-  }
-}, [timer, minutes]);
+    setSeconds(0);
+  };
 
+  const pauseTimer = () => {
+    setTimer(false);
+    setMinutes(minutes);
+    setSeconds(seconds);
+  };
 
+  useEffect(() => {
+    if (timer) {
+      const totalSeconds = minutes * 60 + seconds;
 
+      const newInterval = setInterval(() => {
+        const newTotalSeconds = Math.max(0,(totalSeconds - 1))
+        const newMinutes = Math.floor(newTotalSeconds / 60);
+        const newSeconds = newTotalSeconds % 60;
+
+        setMinutes(newMinutes);
+        setSeconds(newSeconds);
+
+        if (newTotalSeconds === 0) {
+          setTimer(false);
+        }
+      }, 1000);
+
+      return () => clearInterval(newInterval);
+    } else {
+      console.log("Hey!");
+    }
+  }, [timer, seconds]);
 
   return (
-    <div className='text-white flex space-y-3 flex-col justify-center items-center'>
-      <div className='flex space-x-7'>
-      <div>pomodoro</div>
-      <div>short break</div>
-      <div>long break</div>
+    <div className="text-white flex space-y-3 flex-col justify-center items-center">
+      <div className="flex space-x-7">
+        <div>pomodoro</div>
+        <div>short break</div>
+        <div>long break</div>
       </div>
-      <h1 className='text-[65px] '>
-        {
-`${minutes}:${seconds < 10? `0${seconds}` : seconds}`
-        }
+      <h1 className="text-[65px] ">
+        {`${minutes}:${seconds < 10 ? `0${seconds}` : seconds}`}
       </h1>
-      <div className='w-[190px] h-[36px] bg-white flex justify-center  hover:outline-1 hover:outline-black items-center rounded-[80px] text-cuteblue'>
-      <button className='text-cuteblue font-semibold  text-[20px] ' onClick={startTimer}>START</button>
-      </div>
-      
-    </div>
-  )
-}
+      {timer ? (
+        <div className="flex gap-6">
+          <button
+            className="w-[190px] h-[36px] bg-white flex justify-center  hover:outline-1 hover:outline-black items-center rounded-[80px] text-cuteblue"
+            onClick={stopTimer}
+          >
+            <span className="text-cuteblue font-semibold  text-[20px] ">
+              {" "}
+              PAUSE
+            </span>
+          </button>
 
+          <button
+            className="w-[190px] h-[36px] bg-white flex justify-center  hover:outline-1 hover:outline-black items-center rounded-[80px] text-cuteblue"
+            onClick={stopTimer}
+          >
+            <span className="text-cuteblue font-semibold  text-[20px] ">
+              STOP
+            </span>
+          </button>
+        </div>
+      ) : (
+        <button
+          className="w-[190px] h-[36px] bg-white flex justify-center  hover:outline-1 hover:outline-black items-center rounded-[80px] text-cuteblue"
+          onClick={startTimer}
+        >
+          <span className="text-cuteblue font-semibold  text-[20px] ">
+            START
+          </span>
+        </button>
+      )}
+    </div>
+  );
+}
