@@ -2,15 +2,21 @@
 import { time } from "console";
 import { useState, useEffect } from "react";
 
-export default function Timer() {
+type Props = { 
+  finaltime: number|undefined
+
+}
+
+export default function Timer({finaltime}: Props)  {
   const [timer, setTimer] = useState(false);
-  const [minutes, setMinutes] = useState(1);
+  const [minutes, setMinutes] = useState(10);
   const [seconds, setSeconds] = useState(0);
 
   const startTimer = () => {
     setTimer(true);
   };
 
+    console.log(finaltime)
   const stopTimer = () => {
     setTimer(false);
     setMinutes(0);
@@ -23,6 +29,7 @@ export default function Timer() {
     setSeconds(seconds);
   };
 
+   
   useEffect(() => {
     if (timer) {
       const totalSeconds = minutes * 60 + seconds;
@@ -42,7 +49,8 @@ export default function Timer() {
 
       return () => clearInterval(newInterval);
     } else {
-      console.log("Hey!");
+      setMinutes(minutes)
+      setSeconds(seconds)
     }
   }, [timer, seconds]);
 
@@ -60,7 +68,7 @@ export default function Timer() {
         <div className="flex gap-6">
           <button
             className="w-[190px] h-[36px] bg-white flex justify-center  hover:outline-1 hover:outline-black items-center rounded-[80px] text-cuteblue"
-            onClick={stopTimer}
+            onClick={pauseTimer}
           >
             <span className="text-cuteblue font-semibold  text-[20px] ">
               {" "}

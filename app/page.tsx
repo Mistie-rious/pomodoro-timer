@@ -10,7 +10,7 @@ export default function Home() {
   return (
       <div className="bg-cuteblue max-h-fit h-screen">
         <Navbar/>
-        <Timer/>
+        <Timer />
       </div>
   );
 }

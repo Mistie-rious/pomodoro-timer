@@ -1,12 +1,19 @@
 import { useState } from "react";
+import Timer from "./Timer";
 
 export default function Navbar() {
     function showDialog() {
         (document.getElementById("my_modal_1") as HTMLDialogElement).showModal();
     }
 
-    const [inputtime, setInputTime] = useState(String);
+    const [inputtime, setInputTime] = useState<number>();
+    const [finaltime, setFinalTime] = useState<number>()
 
+    const handleSubmit = () => {
+        setFinalTime(inputtime)
+        
+    }
+    console.log(inputtime)
     return (
         <nav className="text-white  px-20  py-6 flex justify-between">
             <p>mistie's pomo</p>
@@ -16,10 +23,11 @@ export default function Navbar() {
                 <div className="bg-cuteblue px-9 py-4 rounded-lg">
                     <h3 className="font-bold text-lg">Hello!</h3>
                     <p className="py-4">How long do you want to focus?</p>
-                    <form>
+                    <form onSubmit={handleSubmit}>
                         <input
+                            type="number"
                             value={inputtime}
-                            onChange={(e) => setInputTime(e.target.value)}
+                            onChange={(e) => setInputTime(e.target.valueAsNumber)}
                             placeholder="Time??"
                             className="border rounded-sm px-2 outline-none py-2 w-full"
                         />
@@ -35,6 +43,7 @@ export default function Navbar() {
                     </div>
                 </div>
             </dialog>
+            <Timer finaltime = {finaltime}/>
         </nav>
     );
 }
