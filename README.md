@@ -1,4 +1,13 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+**Pomodoro Timer**
+
+This project provides a Pomodoro timer application built using Next.js. It allows you to:
+
+* Visually track time: The timer displays the remaining time in minutes and seconds (MM:SS format) for both sessions and breaks.
+* Control the timer: Start, stop, and pause the timer using intuitive buttons.
+* Customize durations (optional): Adjust the session and break lengths in the code within the Timer component.
+
+
+
 
 ## Getting Started
 
