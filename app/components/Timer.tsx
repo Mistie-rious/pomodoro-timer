@@ -1,58 +1,53 @@
 "use client";
-import { time } from "console";
-import { useState, useEffect } from "react";
 
-type Props = { 
-  finaltime: number|undefined
+import { useState, useEffect } from 'react';
 
-}
 
-export default function Timer({finaltime}: Props)  {
-  const [timer, setTimer] = useState(false);
-  const [minutes, setMinutes] = useState(10);
-  const [seconds, setSeconds] = useState(0);
+export default function Timer()  {
 
-  const startTimer = () => {
-    setTimer(true);
-  };
+  const [time, setTime] = useState(60); 
+  const [isRunning, setIsRunning] = useState(false); 
 
-    console.log(finaltime)
-  const stopTimer = () => {
-    setTimer(false);
-    setMinutes(0);
-    setSeconds(0);
-  };
-
-  const pauseTimer = () => {
-    setTimer(false);
-    setMinutes(minutes);
-    setSeconds(seconds);
-  };
-
-   
   useEffect(() => {
-    if (timer) {
-      const totalSeconds = minutes * 60 + seconds;
+    if (!isRunning) return;
 
-      const newInterval = setInterval(() => {
-        const newTotalSeconds = Math.max(0,(totalSeconds - 1))
-        const newMinutes = Math.floor(newTotalSeconds / 60);
-        const newSeconds = newTotalSeconds % 60;
-
-        setMinutes(newMinutes);
-        setSeconds(newSeconds);
-
-        if (newTotalSeconds === 0) {
-          setTimer(false);
+    const timer = setInterval(() => {
+      setTime(prevTime => {
+        if (prevTime <= 1) {
+          clearInterval(timer);
+          setIsRunning(false);
+          return 0;
         }
-      }, 1000);
+        return prevTime - 1;
+      });
+    }, 1000);
 
-      return () => clearInterval(newInterval);
-    } else {
-      setMinutes(minutes)
-      setSeconds(seconds)
-    }
-  }, [timer, seconds]);
+    return () => clearInterval(timer);
+  }, [isRunning])
+
+  const formatTime = (timeInSeconds: number) => {
+    const minutes = Math.floor(timeInSeconds / 60);
+    const seconds = timeInSeconds % 60;
+    return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+  };
+
+
+
+  const startCountdown = () => {
+
+    setIsRunning(true);
+  }
+
+  const pauseCountdown = () => {
+    setIsRunning(false);
+  };
+
+  const stopCountdown = () => {
+    setTime(60); 
+    setIsRunning(false);
+  };
+
+
 
   return (
     <div className="text-white flex space-y-3 flex-col justify-center items-center">
@@ -62,13 +57,13 @@ export default function Timer({finaltime}: Props)  {
         <div>long break</div>
       </div>
       <h1 className="text-[65px] ">
-        {`${minutes}:${seconds < 10 ? `0${seconds}` : seconds}`}
+      {formatTime(time)}
       </h1>
-      {timer ? (
+      {isRunning ? (
         <div className="flex gap-6">
           <button
             className="w-[190px] h-[36px] bg-white flex justify-center  hover:outline-1 hover:outline-black items-center rounded-[80px] text-cuteblue"
-            onClick={pauseTimer}
+            onClick={pauseCountdown}
           >
             <span className="text-cuteblue font-semibold  text-[20px] ">
               {" "}
@@ -78,7 +73,7 @@ export default function Timer({finaltime}: Props)  {
 
           <button
             className="w-[190px] h-[36px] bg-white flex justify-center  hover:outline-1 hover:outline-black items-center rounded-[80px] text-cuteblue"
-            onClick={stopTimer}
+            onClick={stopCountdown}
           >
             <span className="text-cuteblue font-semibold  text-[20px] ">
               STOP
@@ -88,7 +83,7 @@ export default function Timer({finaltime}: Props)  {
       ) : (
         <button
           className="w-[190px] h-[36px] bg-white flex justify-center  hover:outline-1 hover:outline-black items-center rounded-[80px] text-cuteblue"
-          onClick={startTimer}
+          onClick={startCountdown}
         >
           <span className="text-cuteblue font-semibold  text-[20px] ">
             START
