@@ -13,7 +13,7 @@ export default function Home() {
   
   return (
     <MantineProvider >
-      <div className="bg-cuteblue max-h-fit h-screen">
+      <div className=" py-5 bg-cuteblue max-h-fit h-screen">
        <Navbar/>
         <Timer />
       </div>

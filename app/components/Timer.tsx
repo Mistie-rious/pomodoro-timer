@@ -1,12 +1,14 @@
 "use client";
 
 import { useState, useEffect } from 'react';
+import { Button } from '@mantine/core';
 
 
 export default function Timer()  {
 
   const [time, setTime] = useState(60); 
   const [isRunning, setIsRunning] = useState(false); 
+  const [selectedTimer, setSelectedTimer] = useState<'pomodoro' | 'shortBreak' | 'longBreak' | null>('pomodoro');
 
   useEffect(() => {
     if (!isRunning) return;
@@ -47,48 +49,72 @@ export default function Timer()  {
     setIsRunning(false);
   };
 
+  const pomodoros = () => {
+    setTime(300)
+    setIsRunning(false)
+    setSelectedTimer('pomodoro')
+
+  }
+
+  const shortBreak = () => {
+    setTime(300)
+    setIsRunning(false)
+    setSelectedTimer('shortBreak')
+  }
+
+  const longBreak = () => {
+    setTime(600)
+    setIsRunning(false)
+    setSelectedTimer('longBreak')
+  }
+
 
 
   return (
-    <div className="text-white flex space-y-3 flex-col justify-center items-center">
-      <div className="flex space-x-7">
-        <div>pomodoro</div>
-        <div>short break</div>
-        <div>long break</div>
+    <div className="text-white flex space-y-3 py-5 flex-col justify-center items-center">
+      <div className="flex space-x-3">
+      <Button
+        variant={selectedTimer === 'pomodoro' ? 'light' : 'outline'}
+        color="white"
+        radius="lg"
+        onClick={pomodoros}
+      >
+        pomodoro
+      </Button>
+      <Button
+        variant={selectedTimer === 'shortBreak' ? 'light' : 'outline'}
+        color="white"
+        radius="lg"
+        onClick={shortBreak}
+      >
+        short break
+      </Button>
+      <Button
+        variant={selectedTimer === 'longBreak' ? 'light' : 'outline'}
+        color="white"
+        radius="lg"
+        onClick={longBreak}
+      >
+        long break
+      </Button>
       </div>
       <h1 className="text-[65px] ">
       {formatTime(time)}
       </h1>
       {isRunning ? (
         <div className="flex gap-6">
-          <button
-            className="w-[190px] h-[36px] bg-white flex justify-center  hover:outline-1 hover:outline-black items-center rounded-[80px] text-cuteblue"
-            onClick={pauseCountdown}
-          >
-            <span className="text-cuteblue font-semibold  text-[20px] ">
-              {" "}
-              PAUSE
-            </span>
-          </button>
+           <Button variant="white" color="rgba(105, 116, 152, 1)" size="md" radius="xl"
+        onClick={pauseCountdown} >
+          PAUSE</Button>
 
-          <button
-            className="w-[190px] h-[36px] bg-white flex justify-center  hover:outline-1 hover:outline-black items-center rounded-[80px] text-cuteblue"
-            onClick={stopCountdown}
-          >
-            <span className="text-cuteblue font-semibold  text-[20px] ">
-              STOP
-            </span>
-          </button>
+          <Button variant="white" color="rgba(105, 116, 152, 1)" size="md" radius="xl"
+         onClick={stopCountdown} >
+          STOP</Button>
         </div>
       ) : (
-        <button
-          className="w-[190px] h-[36px] bg-white flex justify-center  hover:outline-1 hover:outline-black items-center rounded-[80px] text-cuteblue"
-          onClick={startCountdown}
-        >
-          <span className="text-cuteblue font-semibold  text-[20px] ">
-            START
-          </span>
-        </button>
+        <Button variant="white" color="rgba(105, 116, 152, 1)" size="md" radius="xl"
+        onClick={startCountdown} >
+          START</Button>
       )}
     </div>
   );
