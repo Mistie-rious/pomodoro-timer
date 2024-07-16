@@ -60,6 +60,12 @@ export default function Timer()  {
     return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
   };
 
+  const setTimer = (time: number, timerType: 'pomodoro' | 'shortBreak' | 'longBreak') => {
+    setTime(time * 60);
+    setIsRunning(false);
+    setSelectedTimer(timerType);
+  };
+
   const startCountdown = () => {
     setIsRunning(true);
   };
@@ -72,31 +78,26 @@ export default function Timer()  {
     setIsRunning(false);
     setSelectedTimer((prevTimer) => {
       if (prevTimer === 'pomodoro') {
-        setTime(shortBreak * 60);
+        setTimer(shortBreak, 'shortBreak');
         return 'shortBreak';
       } else if (prevTimer === 'shortBreak' || prevTimer === 'longBreak') {
-        setTime(customTime * 60);
+        setTimer(customTime, 'pomodoro');
         return 'pomodoro';
       }
       return prevTimer;
     });
   };
+
   const pomodoros = () => {
-    setTime(customTime * 60);
-    setIsRunning(false);
-    setSelectedTimer('pomodoro');
+    setTimer(customTime, 'pomodoro');
   };
 
   const shortBreakHandler = () => {
-    setTime(shortBreak * 60);
-    setIsRunning(false);
-    setSelectedTimer('shortBreak');
+    setTimer(shortBreak, 'shortBreak');
   };
 
   const longBreakHandler = () => {
-    setTime(longBreak * 60);
-    setIsRunning(false);
-    setSelectedTimer('longBreak');
+    setTimer(longBreak, 'longBreak');
   };
 
 
@@ -133,16 +134,16 @@ export default function Timer()  {
       </h1>
       {isRunning ? (
         <div className="flex gap-6">
-           <Button variant="white" color="rgba(105, 116, 152, 1)" size="md" radius="xl"
+           <Button variant="default" color="rgba(105, 116, 152, 1)" size="md" radius="xl"
         onClick={pauseCountdown} >
           PAUSE</Button>
 
-          <Button variant="white" color="rgba(105, 116, 152, 1)" size="md" radius="xl"
+          <Button variant="default" color="rgba(105, 116, 152, 1)" size="md" radius="xl"
          onClick={stopCountdown} >
           STOP</Button>
         </div>
       ) : (
-        <Button variant="white" color="rgba(105, 116, 152, 1)" size="md" radius="xl"
+        <Button variant="default" color="rgba(105, 116, 152, 1)" size="md" radius="xl"
         onClick={startCountdown} >
           START</Button>
       )}
