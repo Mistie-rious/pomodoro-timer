@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Button } from '@mantine/core';
 import { useTimerContext } from '../context/TimerContext';
 
@@ -13,8 +13,10 @@ export default function Timer()  {
   const [isRunning, setIsRunning] = useState(false);
   const [selectedTimer, setSelectedTimer] = useState<'pomodoro' | 'shortBreak' | 'longBreak' | null>('pomodoro');
 
-  const chimeSound = typeof window !== 'undefined' && typeof Audio !== 'undefined' ? new Audio('/assets/sounds/chime.mp3') : null;
-
+  const chimeSound = useRef<HTMLAudioElement | undefined>(
+    typeof Audio !== "undefined" ? new Audio('/assets/sounds/chime.mp3') : undefined
+  );
+ 
   useEffect(() => {
     if (!isRunning) return;
   
@@ -23,7 +25,7 @@ export default function Timer()  {
         if (prevTime <= 1) {
           clearInterval(timer);
           setIsRunning(false);
-          chimeSound.play(); 
+          chimeSound.current?.play(); 
           setSelectedTimer(prevTimer => {
             if (prevTimer === 'pomodoro') {
               setTime(shortBreak * 60);
