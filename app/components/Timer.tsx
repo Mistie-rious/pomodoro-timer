@@ -13,7 +13,8 @@ export default function Timer()  {
   const [isRunning, setIsRunning] = useState(false);
   const [selectedTimer, setSelectedTimer] = useState<'pomodoro' | 'shortBreak' | 'longBreak' | null>('pomodoro');
 
-  const chimeSound = new Audio('/assets/sounds/chime.mp3');
+  const chimeSound = typeof window !== 'undefined' && typeof Audio !== 'undefined' ? new Audio('/assets/sounds/chime.mp3') : null;
+
   useEffect(() => {
     if (!isRunning) return;
   
