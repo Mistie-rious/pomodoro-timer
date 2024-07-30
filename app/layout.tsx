@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Rubik } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "./context/ThemeContext";
+import { TimerProvider } from "./context/TimerContext";
 const rubik = Rubik({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -18,9 +19,11 @@ export default function RootLayout({
 
     <html lang="en">
       <body className={rubik.className}>
+        <TimerProvider>
       <ThemeProvider>
         {children}
       </ThemeProvider>
+      </TimerProvider>
       </body>
     </html>
   );

@@ -5,7 +5,7 @@ import { Modal, Button, TextInput, NativeSelect, MantineProvider, createTheme, I
 import { useTimerContext } from "../context/TimerContext";
 import { useTheme } from '../context/ThemeContext';
 
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 function Navbar() {
 
 
@@ -19,18 +19,23 @@ function Navbar() {
     setLongBreak,
   } = useTimerContext();
 
+ 
+
+  const { theme, setTheme } = useTheme();
+  const [selectedTheme, setSelectedTheme] = useState(theme);
+
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
-    
+    setTheme(selectedTheme);
     close();
   };
 
-  const { theme, setTheme } = useTheme();
-
   const handleThemeChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    setTheme(event.target.value);
-    
+    setSelectedTheme(event.target.value);
   };
+
+
+
 
   useEffect(() => {
     console.log("Theme changed to:", theme);
@@ -97,8 +102,8 @@ function Navbar() {
 <NativeSelect
       mt="md"
       label="Select Theme"
-      data={['background', 'theme2', 'theme3', 'theme4']}
-      value={theme}
+      data={['theme1', 'theme2', 'theme3', 'theme4']}
+      value={selectedTheme}
       onChange={handleThemeChange}
 
     />
