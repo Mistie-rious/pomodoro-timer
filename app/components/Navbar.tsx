@@ -102,7 +102,7 @@ function Navbar() {
 <NativeSelect
       mt="md"
       label="Select Theme"
-      data={['theme1', 'theme2', 'theme3', 'theme4']}
+      data={['Spooky', 'Chill', 'Rainy', 'Arcane']}
       value={selectedTheme}
       onChange={handleThemeChange}
 

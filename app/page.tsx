@@ -12,11 +12,12 @@ export default function Home() {
   
   const { theme } = useTheme();
   
+  console.log("Theme is:", theme);
   return (
 
    
     <MantineProvider >
-      <div className={`py-5 space-y-28 px-20 max-md:px-10 flex flex-col bg-cover max-w-screen max-h-fit h-screen ${theme === 'theme1' ? 'bg-background' : theme === 'theme2' ? 'bg-background1' : theme === 'theme3' ? 'bg-background-theme3' : 'bg-background-theme4'}`}>
+      <div className={`py-5 space-y-28 px-20 max-md:px-10 flex flex-col bg-cover max-w-screen max-h-fit h-screen bg-${theme}`}>
         <div>
        <Navbar/>
         <Timer />
