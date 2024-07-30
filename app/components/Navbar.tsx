@@ -1,9 +1,14 @@
-import { useDisclosure } from "@mantine/hooks";
-import { useState } from "react";
-import { Modal, Button, Input } from "@mantine/core";
-import { useTimerContext } from "../context/TimerContext";
+"use client"
 
+import { useDisclosure } from "@mantine/hooks";
+import { Modal, Button, TextInput, NativeSelect, MantineProvider, createTheme, Input } from "@mantine/core";
+import { useTimerContext } from "../context/TimerContext";
+import { useTheme } from '../context/ThemeContext';
+
+import { useContext, useEffect } from "react";
 function Navbar() {
+
+
   const [opened, { open, close }] = useDisclosure(false);
   const {
     customTime,
@@ -16,14 +21,27 @@ function Navbar() {
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
-    console.log("Submitted time:", customTime, longBreak, shortBreak);
+    
     close();
   };
 
+  const { theme, setTheme } = useTheme();
+
+  const handleThemeChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    setTheme(event.target.value);
+    
+  };
+
+  useEffect(() => {
+    console.log("Theme changed to:", theme);
+  }, [theme]);
+
+
+  
   return (
     <>
-      <div className="flex px-20 text-white w-screen justify-between items-center">
-        <div>Mistie's Pomo</div>
+      <div className="flex  text-white  justify-between items-center">
+        <div className="font-bold" >Mistie's Pomo</div>
         <Modal
           opened={opened}
           onClose={close}
@@ -75,6 +93,15 @@ function Navbar() {
     type="number"
   />
 </Input.Wrapper>
+
+<NativeSelect
+      mt="md"
+      label="Select Theme"
+      data={['background', 'theme2', 'theme3', 'theme4']}
+      value={theme}
+      onChange={handleThemeChange}
+
+    />
               </div>
 
               <Button

@@ -12,19 +12,24 @@ interface TimerContextProps {
 const TimerContext = createContext<TimerContextProps | undefined>(undefined);
 
 const useLocalStorageState = (key: string, defaultValue: number) => {
-  const [value, setValue] = useState<number>(() => {
-    if (typeof window !== 'undefined') {
-      const savedValue = localStorage.getItem(key);
-      return savedValue !== null ? Number(savedValue) : defaultValue;
-    }
-    return defaultValue;
-  });
+  const [value, setValue] = useState<number>(defaultValue);
+  const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
+    setIsClient(true);
     if (typeof window !== 'undefined') {
+      const savedValue = localStorage.getItem(key);
+      if (savedValue !== null) {
+        setValue(Number(savedValue));
+      }
+    }
+  }, [key]);
+
+  useEffect(() => {
+    if (isClient) {
       localStorage.setItem(key, value.toString());
     }
-  }, [key, value]);
+  }, [key, value, isClient]);
 
   return [value, setValue] as const;
 };

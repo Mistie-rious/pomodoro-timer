@@ -137,16 +137,16 @@ export default function Timer()  {
       </h1>
       {isRunning ? (
         <div className="flex gap-6">
-           <Button variant="default" color="rgba(105, 116, 152, 1)" size="md" radius="xl"
+           <Button variant="default" color="rgba(105, 116, 152, 1)" size="sm" radius="xl"
         onClick={pauseCountdown} >
           PAUSE</Button>
 
-          <Button variant="default" color="rgba(105, 116, 152, 1)" size="md" radius="xl"
+          <Button variant="default" color="rgba(105, 116, 152, 1)" size="sm" radius="xl"
          onClick={stopCountdown} >
           STOP</Button>
         </div>
       ) : (
-        <Button variant="default" color="rgba(105, 116, 152, 1)" size="md" radius="xl"
+        <Button variant="default" color="rgba(105, 116, 152, 1)" size="sm" radius="xl"
         onClick={startCountdown} >
           START</Button>
       )}
