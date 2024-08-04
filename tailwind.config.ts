@@ -9,10 +9,16 @@ const config: Config = {
   theme: {
     extend: {
       backgroundImage: {
-          'Spooky': "url('/assets/images/home.png')",
-          'Chill': "url('/assets/images/chill.jpeg')",
-          'Rainy': "url('/assets/images/rainy-evening.webp')",
-          'Arcane': "url('/assets/images/arcane.webp')",
+          'spooky': "url('/assets/images/home.png')",
+          'chill': "url('/assets/images/chill.jpeg')",
+          'charlotte': "url('/assets/images/charlotte.jpg')",
+          'mystic': "url('/assets/images/mystic.jpg')",
+          'sunset': "url('/assets/images/sunset.jpg')",
+          'car': "url('/assets/images/car.jpg')",
+          'books': "url('/assets/images/books.jpg')",
+          'anime': "url('/assets/images/anime.jpg')",
+
+
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
         "gradient-conic":
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",

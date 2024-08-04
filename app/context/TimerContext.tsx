@@ -13,14 +13,14 @@ interface TimerContextProps {
 
 const TimerContext = createContext<TimerContextProps | undefined>(undefined);
 
-const useLocalStorageState = (key: string, defaultValue: number) => {
+const useSessionStorageState = (key: string, defaultValue: number) => {
   const [value, setValue] = useState<number>(defaultValue);
   const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
     setIsClient(true);
     if (typeof window !== 'undefined') {
-      const savedValue = localStorage.getItem(key);
+      const savedValue = sessionStorage.getItem(key);
       if (savedValue !== null) {
         setValue(Number(savedValue));
       }
@@ -29,7 +29,7 @@ const useLocalStorageState = (key: string, defaultValue: number) => {
 
   useEffect(() => {
     if (isClient) {
-      localStorage.setItem(key, value.toString());
+      sessionStorage.setItem(key, value.toString());
     }
   }, [key, value, isClient]);
 
@@ -37,9 +37,9 @@ const useLocalStorageState = (key: string, defaultValue: number) => {
 };
 
 export const TimerProvider = ({ children }: { children: ReactNode }) => {
-  const [customTime, setCustomTime] = useLocalStorageState('customTime', 25);
-  const [shortBreak, setShortBreak] = useLocalStorageState('shortBreak', 5);
-  const [longBreak, setLongBreak] = useLocalStorageState('longBreak', 10);
+  const [customTime, setCustomTime] = useSessionStorageState('customTime', 25);
+  const [shortBreak, setShortBreak] = useSessionStorageState('shortBreak', 5);
+  const [longBreak, setLongBreak] = useSessionStorageState('longBreak', 10);
 
   return (
     <TimerContext.Provider value={{ customTime, shortBreak, longBreak, setCustomTime, setShortBreak, setLongBreak }}>
