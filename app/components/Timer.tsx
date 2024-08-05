@@ -108,10 +108,13 @@ export default function Timer()  {
     <div className="text-white flex space-y-3 py-5 flex-col justify-center items-center">
       <div className="flex space-x-3">
       <Button
+      className='w-24'
+        size='sm'
         variant={selectedTimer === 'pomodoro' ? 'default' : 'outline'}
         color="white"
         radius="lg"
         onClick={pomodoros}
+        
       >
         pomodoro
       </Button>

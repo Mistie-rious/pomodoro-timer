@@ -29,7 +29,7 @@ export default function Home() {
   return (
 
    <>
-    <MantineProvider>
+    <MantineProvider >
       <div
         className={`py-5 space-y-36 px-20 max-md:px-10 flex flex-col  bg-cover max-w-screen max-h-screen overflow-hidden  ${themeClass}`}>
         <div>

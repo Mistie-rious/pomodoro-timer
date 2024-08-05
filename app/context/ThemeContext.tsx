@@ -10,7 +10,7 @@ interface ThemeContextProps {
 const ThemeContext = createContext<ThemeContextProps | undefined>(undefined);
 
 export const ThemeProvider = ({ children }: { children: ReactNode }) => {
-  const [theme, setTheme] = useState('Spooky');
+  const [theme, setTheme] = useState('Car');
 
   return (
     <ThemeContext.Provider value={{ theme, setTheme }}>

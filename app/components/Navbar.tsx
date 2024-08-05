@@ -52,6 +52,7 @@ function Navbar() {
             body: { backgroundColor: '#333' }, // Dark gray
             header: { backgroundColor: '#333' },
             title: { color: 'white' },
+
           }}
           opened={opened}
           onClose={close}
@@ -63,6 +64,7 @@ function Navbar() {
               <div className="flex flex-col space-y-2">
                 <Input.Wrapper label="Pomodoro Time" className="text-white" size="xs">
                   <Input
+                 
                   styles={{
                     input: { backgroundColor: '#555555', color: "white" },
                  }}
@@ -116,8 +118,9 @@ function Navbar() {
 <NativeSelect
 styles={
   {
-    input: { backgroundColor: '#555555', color: "white" }, // Dark gray
-    label: {color: "white"} // Dark gray
+    input: { backgroundColor: '#555555', color: "white" },
+    label: {color: "white"}, 
+    section: { backgroundColor: '#555555', color: "white" },
   }
 }
       mt="md"
