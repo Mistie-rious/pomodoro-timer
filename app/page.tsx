@@ -31,14 +31,14 @@ export default function Home() {
    <>
     <MantineProvider >
       <div
-        className={`py-5 space-y-36 px-20 max-md:px-10 flex flex-col  bg-cover max-w-screen max-h-screen overflow-hidden  ${themeClass}`}>
+        className={`py-5 px-20 justify-between max-md:px-10  flex flex-col h-screen  bg-cover max-w-screen overflow-hidden max-h-screen   ${themeClass}`}>
         <div>
        <Navbar/>
         <Timer />
         </div>
         <div  className="">
         {/* <MusicPlayer/> */}
-        <Spotify/>
+        <Spotify />
         </div>
       </div>
       </MantineProvider>
